@@ -25,3 +25,7 @@ provider "azurerm" {
 provider "cloudinit" {
   # Configuration options
 }
+
+provider "tls" {
+
+}

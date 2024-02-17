@@ -13,3 +13,9 @@ variable "admin_username" {
   default     = "azureadmin"
   description = "The username for the local user account on the VM."
 }
+
+variable "ssh_public_key_path" {
+  description = "The path to the public SSH key to be used for authentication."
+  type        = string
+  default     = "/home/azureadmin/.ssh/id_rsa.pub"
+}

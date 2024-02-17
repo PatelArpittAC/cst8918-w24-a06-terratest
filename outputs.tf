@@ -14,3 +14,12 @@ output "nic_name" {
 output "public_ip" {
   value = azurerm_linux_virtual_machine.webserver.public_ip_address
 }
+
+output "vm_image_version" {
+  value = azurerm_linux_virtual_machine.webserver.source_image_reference[0].version
+}
+
+output "private_key" {
+  sensitive = true
+  value     = tls_private_key.rsa.private_key_openssh
+}

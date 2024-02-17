@@ -120,8 +120,20 @@ resource "azurerm_linux_virtual_machine" "webserver" {
 
   admin_ssh_key {
     username   = var.admin_username
-    public_key = file("~/.ssh/id_rsa.pub")
+    public_key = azurerm_ssh_public_key.key_provider.public_key
   }
 
   custom_data = data.cloudinit_config.init.rendered
+}
+
+resource "tls_private_key" "rsa" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "azurerm_ssh_public_key" "key_provider" {
+  name                = "${var.labelPrefix}-A05sshpublickey"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  public_key          = tls_private_key.rsa.public_key_openssh
 }
